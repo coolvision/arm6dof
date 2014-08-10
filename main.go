@@ -71,7 +71,9 @@ func (s *Staubli) Move6DOF(x, y, z, yaw, pitch, roll float64) error {
 	// we probably need a lock here...
 
 	log.Println("send")
-	log.Printf("9 %.3f %.3f %.3f %.3f %.3f %.3f\r\n")
+	log.Println("vals", x, y, z, yaw, pitch, roll)
+	log.Printf("9 %.3f %.3f %.3f %.3f %.3f %.3f\r\n", x, y, z, yaw, pitch, roll)
+	log.Printf("0 %.3f %.3f %.3f\r\n", x, y, z)
 
 	//_, err := fmt.Fprintf(s.rw, "9 %.3f %.3f %.3f %.3f %.3f %.3f\r\n", x, y, z, yaw, pitch, roll)
 	_, err := fmt.Fprintf(s.rw, "0 %.3f %.3f %.3f\r\n", x, y, z)
@@ -140,6 +142,8 @@ func handleRun(w http.ResponseWriter, r *http.Request) {
 	yaw, _ := strconv.ParseFloat(v.Get("yaw"), 32)
 	pitch, _ := strconv.ParseFloat(v.Get("pitch"), 32)
 	roll, _ := strconv.ParseFloat(v.Get("roll"), 32)
+
+	log.Println(x, y, z, yaw, pitch, roll, x+origin.x, y+origin.y, z+origin.z)
 
 	//log.Printf("RUNNING GCODE!\n")
 	//dmux(r.Body)
