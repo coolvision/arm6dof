@@ -69,7 +69,13 @@ func (s *dummy) Move6DOF(x, y, z, yaw, pitch, roll float64) error {
 // Move the arm to the point (x,y,z), without guaranteeing a staight line.
 func (s *Staubli) Move6DOF(x, y, z, yaw, pitch, roll float64) error {
 	// we probably need a lock here...
-	_, err := fmt.Fprintf(s.rw, "9 %.3f %.3f %.3f %.3f %.3f %.3f\r\n", x, y, z, yaw, pitch, roll)
+
+	log.Println("send")
+	log.Printf("9 %.3f %.3f %.3f %.3f %.3f %.3f\r\n")
+
+	//_, err := fmt.Fprintf(s.rw, "9 %.3f %.3f %.3f %.3f %.3f %.3f\r\n", x, y, z, yaw, pitch, roll)
+	_, err := fmt.Fprintf(s.rw, "0 %.3f %.3f %.3f\r\n", x, y, z)
+
 	if err != nil {
 		return fmt.Errorf("error sending coordinates to arm: %s", err)
 	}
