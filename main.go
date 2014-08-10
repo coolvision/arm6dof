@@ -104,10 +104,10 @@ func NewStaubli(rw io.ReadWriter) *Staubli {
 
 func handleRun(w http.ResponseWriter, r *http.Request) {
 	// TODO: communicate the running state to js, so the right buttons get enabled/disabled.
-	if running {
-		log.Printf("Got run request from %s, but the arm is already running.\n", r.RemoteAddr)
-		return
-	}
+	// if running {
+	// 	log.Printf("Got run request from %s, but the arm is already running.\n", r.RemoteAddr)
+	// 	return
+	// }
 	log.Printf("Got a request from %s\n", r.RemoteAddr)
 	//sessionLock.Lock()
 	running = true
