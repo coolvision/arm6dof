@@ -1,7 +1,5 @@
 auto slun
 auto real x, y, z, a, b, c, op
-auto real read_yaw, read_pitch, read_roll
-
 
 auto real pitch, yaw, roll
 
@@ -28,6 +26,8 @@ END
 
 WRITE (slun) "Ready"
 
+TYPE "ready"
+
 WHILE TRUE DO
 	READ (slun) op, x, y, z, a, b, c
 	IF IOSTAT(slun) < 0 THEN
@@ -36,25 +36,10 @@ WHILE TRUE DO
 		WAIT TIMER(1) > 1
 	END
 
+	TYPE "got command"
+	TYPE "op ", op, ",", x, ",", y, ",", z
+
 	CASE op OF
-	VALUE 9:
-		; 6DOF move
-		SET loc = TRANS(x,y,z,a,b,c)
-
-		if (x == 0) and (y == 0) and (z == 0) then
-			TYPE "got zeros, wtf"
-			pause
-		end
-
-		TYPE "move ", x, ",", y, ",", z, ",", a, ",", b, ",", c
-		IF INRANGE(loc) == 0 THEN
-			MOVE loc
-			WRITE (slun) "OK"
-		ELSE
-			TYPE "out of range"
-			WRITE (slun) "out of range"
-		END
-
 	VALUE 0:
 		; quick move
 		SET loc = TRANS(x,y,z,yaw,pitch,roll)
