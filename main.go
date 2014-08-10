@@ -71,12 +71,12 @@ func (s *Staubli) Move6DOF(x, y, z, yaw, pitch, roll float64) error {
 	// we probably need a lock here...
 
 	log.Println("send")
-	log.Println("vals", x, y, z, yaw, pitch, roll)
+	//	log.Println("vals", x, y, z, yaw, pitch, roll)
 	log.Printf("9 %.3f %.3f %.3f %.3f %.3f %.3f\r\n", x, y, z, yaw, pitch, roll)
-	log.Printf("0 %.3f %.3f %.3f\r\n", x, y, z)
+	//	log.Printf("0 %.3f %.3f %.3f\r\n", x, y, z)
 
-	//_, err := fmt.Fprintf(s.rw, "9 %.3f %.3f %.3f %.3f %.3f %.3f\r\n", x, y, z, yaw, pitch, roll)
-	_, err := fmt.Fprintf(s.rw, "0 %.3f %.3f %.3f\r\n", x, y, z)
+	_, err := fmt.Fprintf(s.rw, "9 %.3f %.3f %.3f %.3f %.3f %.3f\r\n", x, y, z, yaw, pitch, roll)
+	//_, err := fmt.Fprintf(s.rw, "0 %.3f %.3f %.3f\r\n", x, y, z)
 
 	if err != nil {
 		return fmt.Errorf("error sending coordinates to arm: %s", err)
